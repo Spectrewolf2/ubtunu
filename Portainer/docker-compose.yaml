@@ -1,0 +1,21 @@
+---
+version: '3.8'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "80:9000"   # Map port 80 to Portainer's web UI port (9000)
+      - "443:9443"  # Map port 443 to Portainer's HTTPS port (9443)
+    environment:
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=Password123!
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Docker socket for managing Docker
+      - portainer_data:/data                      # Persistent data storage
+
+volumes:
+  portainer_data:
+    driver: local
